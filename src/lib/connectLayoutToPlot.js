@@ -5,7 +5,22 @@ import {getDisplayName} from '../lib';
 import {EDITOR_ACTIONS} from './constants';
 
 export default function connectLayoutToPlot(WrappedComponent) {
+  const LayoutConnectedComponentContext = React.createContext({
+    layout: PropTypes.object,
+    fullLayout: PropTypes.object,
+    plotly: PropTypes.object,
+    onUpdate: PropTypes.func,
+  });
+
+  const LayoutConnectedComponentChildContext = React.createContext({
+    getValObject: PropTypes.func,
+    updateContainer: PropTypes.func,
+    container: PropTypes.object,
+    fullContainer: PropTypes.object,
+  });
+
   class LayoutConnectedComponent extends Component {
+    static contextType = LayoutConnectedComponentContext;
     getChildContext() {
       const {layout, fullLayout, plotly, onUpdate} = this.context;
 
@@ -38,20 +53,6 @@ export default function connectLayoutToPlot(WrappedComponent) {
   }
 
   LayoutConnectedComponent.displayName = `LayoutConnected${getDisplayName(WrappedComponent)}`;
-
-  LayoutConnectedComponent.contextTypes = {
-    layout: PropTypes.object,
-    fullLayout: PropTypes.object,
-    plotly: PropTypes.object,
-    onUpdate: PropTypes.func,
-  };
-
-  LayoutConnectedComponent.childContextTypes = {
-    getValObject: PropTypes.func,
-    updateContainer: PropTypes.func,
-    container: PropTypes.object,
-    fullContainer: PropTypes.object,
-  };
 
   const {plotly_editor_traits} = WrappedComponent;
   LayoutConnectedComponent.plotly_editor_traits = plotly_editor_traits;

@@ -21,7 +21,15 @@ import {traceHasColorbar} from './default_panels/StyleColorbarsPanel';
 import Logo from './components/widgets/Logo';
 import {TRANSFORMABLE_TRACES, TRACE_TO_AXIS} from './lib/constants';
 
+const DefaultEditorContext = React.createContext({
+  localize: PropTypes.func,
+  fullData: PropTypes.array,
+  fullLayout: PropTypes.object,
+  layout: PropTypes.object,
+});
+
 class DefaultEditor extends Component {
+  static contextType = DefaultEditorContext;
   constructor(props, context) {
     super(props, context);
     this.hasTransforms = this.hasTransforms.bind(this);
@@ -111,13 +119,6 @@ DefaultEditor.propTypes = {
   logoSrc: PropTypes.string,
   logoLinkUrl: PropTypes.string,
   menuPanelOrder: PropTypes.array,
-};
-
-DefaultEditor.contextTypes = {
-  localize: PropTypes.func,
-  fullData: PropTypes.array,
-  fullLayout: PropTypes.object,
-  layout: PropTypes.object,
 };
 
 export default DefaultEditor;

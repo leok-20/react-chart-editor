@@ -3,7 +3,25 @@ import PropTypes from 'prop-types';
 import {getDisplayName} from '../lib';
 
 export default function connectAggregationToTransform(WrappedComponent) {
+  const AggregationConnectedComponentContext = React.createContext({
+    container: PropTypes.object,
+    fullContainer: PropTypes.object,
+    data: PropTypes.array,
+    onUpdate: PropTypes.func,
+    updateContainer: PropTypes.func,
+    getValObject: PropTypes.func,
+  });
+
+  const AggregationConnectedComponentChildContext = React.createContext({
+    updateContainer: PropTypes.func,
+    deleteContainer: PropTypes.func,
+    container: PropTypes.object,
+    fullContainer: PropTypes.object,
+    getValObject: PropTypes.func,
+  });
+
   class AggregationConnectedComponent extends Component {
+    static contextType = AggregationConnectedComponentContext;
     constructor(props, context) {
       super(props, context);
 
@@ -57,23 +75,6 @@ export default function connectAggregationToTransform(WrappedComponent) {
 
   AggregationConnectedComponent.propTypes = {
     aggregationIndex: PropTypes.number.isRequired,
-  };
-
-  AggregationConnectedComponent.contextTypes = {
-    container: PropTypes.object,
-    fullContainer: PropTypes.object,
-    data: PropTypes.array,
-    onUpdate: PropTypes.func,
-    updateContainer: PropTypes.func,
-    getValObject: PropTypes.func,
-  };
-
-  AggregationConnectedComponent.childContextTypes = {
-    updateContainer: PropTypes.func,
-    deleteContainer: PropTypes.func,
-    container: PropTypes.object,
-    fullContainer: PropTypes.object,
-    getValObject: PropTypes.func,
   };
 
   const {plotly_editor_traits} = WrappedComponent;

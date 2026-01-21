@@ -33,7 +33,27 @@ function computeAxesOptions(axes, props, context) {
 }
 
 export default function connectAxesToLayout(WrappedComponent) {
+  const AxesConnectedComponentContext = React.createContext({
+    container: PropTypes.object.isRequired,
+    fullContainer: PropTypes.object.isRequired,
+    updateContainer: PropTypes.func,
+    localize: PropTypes.func,
+    getValObject: PropTypes.func,
+  });
+
+  const AxesConnectedComponentChildContext = React.createContext({
+    axesOptions: PropTypes.array,
+    axesTarget: PropTypes.string,
+    axesTargetHandler: PropTypes.func,
+    container: PropTypes.object,
+    defaultContainer: PropTypes.object,
+    fullContainer: PropTypes.object,
+    updateContainer: PropTypes.func,
+    getValObject: PropTypes.func,
+  });
+
   class AxesConnectedComponent extends Component {
+    static contextType = AxesConnectedComponentContext;
     constructor(props, context) {
       super(props, context);
 
@@ -143,25 +163,6 @@ export default function connectAxesToLayout(WrappedComponent) {
   }
 
   AxesConnectedComponent.displayName = `AxesConnected${getDisplayName(WrappedComponent)}`;
-
-  AxesConnectedComponent.contextTypes = {
-    container: PropTypes.object.isRequired,
-    fullContainer: PropTypes.object.isRequired,
-    updateContainer: PropTypes.func,
-    localize: PropTypes.func,
-    getValObject: PropTypes.func,
-  };
-
-  AxesConnectedComponent.childContextTypes = {
-    axesOptions: PropTypes.array,
-    axesTarget: PropTypes.string,
-    axesTargetHandler: PropTypes.func,
-    container: PropTypes.object,
-    defaultContainer: PropTypes.object,
-    fullContainer: PropTypes.object,
-    updateContainer: PropTypes.func,
-    getValObject: PropTypes.func,
-  };
 
   const {plotly_editor_traits} = WrappedComponent;
   AxesConnectedComponent.plotly_editor_traits = plotly_editor_traits;

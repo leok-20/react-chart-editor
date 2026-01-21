@@ -4,7 +4,12 @@ import {Dropdown, TextEditor} from '../index';
 import Field from './Field';
 import {connectToContainer} from 'lib';
 
+const UpdateMenuButtonsContext = React.createContext({
+  localize: PropTypes.func,
+});
+
 class UpdateMenuButtons extends Component {
+  static contextType = UpdateMenuButtonsContext;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -43,10 +48,6 @@ UpdateMenuButtons.propTypes = {
   attr: PropTypes.string,
   fullValue: PropTypes.array,
   updatePlot: PropTypes.func,
-};
-
-UpdateMenuButtons.contextTypes = {
-  localize: PropTypes.func,
 };
 
 export default connectToContainer(UpdateMenuButtons);

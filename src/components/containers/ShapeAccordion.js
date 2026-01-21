@@ -8,7 +8,13 @@ import {PanelMessage} from './PanelEmpty';
 
 const ShapeFold = connectShapeToLayout(PlotlyFold);
 
+const ShapeAccordionContext = React.createContext({
+  layout: PropTypes.object,
+  localize: PropTypes.func,
+});
+
 class ShapeAccordion extends Component {
+  static contextType = ShapeAccordionContext;
   render() {
     const {
       layout: {shapes = []},
@@ -65,11 +71,6 @@ class ShapeAccordion extends Component {
     );
   }
 }
-
-ShapeAccordion.contextTypes = {
-  layout: PropTypes.object,
-  localize: PropTypes.func,
-};
 
 ShapeAccordion.propTypes = {
   children: PropTypes.node,

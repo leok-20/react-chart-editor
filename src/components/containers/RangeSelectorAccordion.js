@@ -6,7 +6,14 @@ import {connectRangeSelectorToAxis, getParsedTemplateString} from 'lib';
 
 const RangeSelectorFold = connectRangeSelectorToAxis(PlotlyFold);
 
+const RangeSelectorAccordionContext = React.createContext({
+  fullContainer: PropTypes.object,
+  localize: PropTypes.func,
+  layout: PropTypes.object,
+});
+
 class RangeSelectorAccordion extends Component {
+  static contextType = RangeSelectorAccordionContext;
   render() {
     if (
       !this.context.fullContainer ||
@@ -59,12 +66,6 @@ class RangeSelectorAccordion extends Component {
     return <PlotlyPanel addAction={addAction}>{content ? content : null}</PlotlyPanel>;
   }
 }
-
-RangeSelectorAccordion.contextTypes = {
-  fullContainer: PropTypes.object,
-  localize: PropTypes.func,
-  layout: PropTypes.object,
-};
 
 RangeSelectorAccordion.propTypes = {
   children: PropTypes.node,

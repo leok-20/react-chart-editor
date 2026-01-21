@@ -6,7 +6,13 @@ import {connectUpdateMenuToLayout} from 'lib';
 
 const UpdateMenuFold = connectUpdateMenuToLayout(PlotlyFold);
 
+const UpdateMenuAccordionContext = React.createContext({
+  fullLayout: PropTypes.object,
+  localize: PropTypes.func,
+});
+
 class UpdateMenuAccordion extends Component {
+  static contextType = UpdateMenuAccordionContext;
   render() {
     const {
       fullLayout: {updatemenus = []},
@@ -35,11 +41,6 @@ class UpdateMenuAccordion extends Component {
     return <TraceRequiredPanel>{content ? content : null}</TraceRequiredPanel>;
   }
 }
-
-UpdateMenuAccordion.contextTypes = {
-  fullLayout: PropTypes.object,
-  localize: PropTypes.func,
-};
 
 UpdateMenuAccordion.propTypes = {
   children: PropTypes.node,

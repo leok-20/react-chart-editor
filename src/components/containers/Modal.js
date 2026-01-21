@@ -15,7 +15,13 @@ const ModalHeader = ({title, handleClose}) => (
 
 const ModalContent = ({children}) => <div className="modal__content">{children}</div>;
 
+const ModalContext = React.createContext({
+  handleClose: PropTypes.func,
+  isAnimatingOut: PropTypes.bool,
+});
+
 class Modal extends Component {
+  static contextType = ModalContext;
   constructor(props) {
     super(props);
     this.escFunction = this.escFunction.bind(this);
@@ -66,11 +72,6 @@ ModalContent.propTypes = {
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.node,
-};
-
-Modal.contextTypes = {
-  handleClose: PropTypes.func,
-  isAnimatingOut: PropTypes.bool,
 };
 
 export default Modal;

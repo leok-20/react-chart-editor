@@ -27,6 +27,38 @@ import {categoryLayout, traceTypes} from 'lib/traceTypes';
 import {ModalProvider} from 'components/containers';
 import {DEFAULT_FONTS} from 'lib/constants';
 
+const EditorControlsChildContext = React.createContext({
+  advancedTraceTypeSelector: PropTypes.bool,
+  config: PropTypes.object,
+  srcConverters: PropTypes.shape({
+    toSrc: PropTypes.func.isRequired,
+    fromSrc: PropTypes.func.isRequired,
+  }),
+  data: PropTypes.array,
+  dataSourceComponents: PropTypes.object,
+  dataSourceOptions: PropTypes.array,
+  dataSources: PropTypes.object,
+  dictionaries: PropTypes.object,
+  frames: PropTypes.array,
+  fullData: PropTypes.array,
+  fullLayout: PropTypes.object,
+  graphDiv: PropTypes.any,
+  layout: PropTypes.object,
+  locale: PropTypes.string,
+  localize: PropTypes.func,
+  onUpdate: PropTypes.func,
+  plotly: PropTypes.object,
+  plotSchema: PropTypes.object,
+  traceTypesConfig: PropTypes.object,
+  showFieldTooltips: PropTypes.bool,
+  glByDefault: PropTypes.bool,
+  mapBoxAccess: PropTypes.bool,
+  fontOptions: PropTypes.array,
+  chartHelp: PropTypes.object,
+  customConfig: PropTypes.object,
+  hasValidCustomConfigVisibilityRules: PropTypes.bool,
+});
+
 class EditorControls extends Component {
   constructor(props, context) {
     super(props, context);
@@ -434,38 +466,6 @@ EditorControls.defaultProps = {
     complex: true,
   },
   fontOptions: DEFAULT_FONTS,
-};
-
-EditorControls.childContextTypes = {
-  advancedTraceTypeSelector: PropTypes.bool,
-  config: PropTypes.object,
-  srcConverters: PropTypes.shape({
-    toSrc: PropTypes.func.isRequired,
-    fromSrc: PropTypes.func.isRequired,
-  }),
-  data: PropTypes.array,
-  dataSourceComponents: PropTypes.object,
-  dataSourceOptions: PropTypes.array,
-  dataSources: PropTypes.object,
-  dictionaries: PropTypes.object,
-  frames: PropTypes.array,
-  fullData: PropTypes.array,
-  fullLayout: PropTypes.object,
-  graphDiv: PropTypes.any,
-  layout: PropTypes.object,
-  locale: PropTypes.string,
-  localize: PropTypes.func,
-  onUpdate: PropTypes.func,
-  plotly: PropTypes.object,
-  plotSchema: PropTypes.object,
-  traceTypesConfig: PropTypes.object,
-  showFieldTooltips: PropTypes.bool,
-  glByDefault: PropTypes.bool,
-  mapBoxAccess: PropTypes.bool,
-  fontOptions: PropTypes.array,
-  chartHelp: PropTypes.object,
-  customConfig: PropTypes.object,
-  hasValidCustomConfigVisibilityRules: PropTypes.bool,
 };
 
 export default EditorControls;

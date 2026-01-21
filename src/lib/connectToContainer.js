@@ -23,7 +23,15 @@ export const containerConnectedContextTypes = {
 };
 
 export default function connectToContainer(WrappedComponent, config = {}) {
+  const ContainerConnectedComponentContext = React.createContext(containerConnectedContextTypes);
+
+  const ContainerConnectedComponentChildContext = React.createContext({
+    description: PropTypes.string,
+    attr: PropTypes.string,
+  });
+
   class ContainerConnectedComponent extends Component {
+    static contextType = ContainerConnectedComponentContext;
     // Run the inner modifications first and allow more recent modifyPlotProp
     // config function to modify last.
     static modifyPlotProps(props, context, plotProps) {
@@ -83,12 +91,6 @@ export default function connectToContainer(WrappedComponent, config = {}) {
   }
 
   ContainerConnectedComponent.displayName = `ContainerConnected${getDisplayName(WrappedComponent)}`;
-
-  ContainerConnectedComponent.contextTypes = containerConnectedContextTypes;
-  ContainerConnectedComponent.childContextTypes = {
-    description: PropTypes.string,
-    attr: PropTypes.string,
-  };
 
   const {plotly_editor_traits} = WrappedComponent;
   ContainerConnectedComponent.plotly_editor_traits = plotly_editor_traits;

@@ -14,7 +14,15 @@ import {
 } from 'lib';
 import {PlotlySection} from 'components';
 
+const UnconnectedAxisCreatorContext = React.createContext({
+  fullLayout: PropTypes.object,
+  data: PropTypes.array,
+  fullData: PropTypes.array,
+  onUpdate: PropTypes.func,
+});
+
 class UnconnectedAxisCreator extends Component {
+  static contextType = UnconnectedAxisCreatorContext;
   canAddAxis() {
     const currentAxisId = this.props.fullContainer[this.props.attr];
     const currentTraceIndex = this.props.fullContainer.index;
@@ -110,16 +118,18 @@ UnconnectedAxisCreator.propTypes = {
   updateContainer: PropTypes.func,
 };
 
-UnconnectedAxisCreator.contextTypes = {
-  fullLayout: PropTypes.object,
-  data: PropTypes.array,
-  fullData: PropTypes.array,
-  onUpdate: PropTypes.func,
-};
-
 const AxisCreator = connectToContainer(UnconnectedAxisCreator);
 
+const UnconnectedAxesCreatorContext = React.createContext({
+  data: PropTypes.array,
+  fullData: PropTypes.array,
+  fullLayout: PropTypes.object,
+  localize: PropTypes.func,
+  setPanel: PropTypes.func,
+});
+
 class UnconnectedAxesCreator extends Component {
+  static contextType = UnconnectedAxesCreatorContext;
   render() {
     const axisType = traceTypeToAxisType(this.props.container.type);
     const isFirstTraceOfAxisType =
@@ -170,14 +180,6 @@ class UnconnectedAxesCreator extends Component {
 UnconnectedAxesCreator.propTypes = {
   container: PropTypes.object,
   fullContainer: PropTypes.object,
-};
-
-UnconnectedAxesCreator.contextTypes = {
-  data: PropTypes.array,
-  fullData: PropTypes.array,
-  fullLayout: PropTypes.object,
-  localize: PropTypes.func,
-  setPanel: PropTypes.func,
 };
 
 export default connectToContainer(UnconnectedAxesCreator, {

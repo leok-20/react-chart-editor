@@ -3,7 +3,12 @@ import React, {Component} from 'react';
 import Select from 'react-select';
 import classnames from 'classnames';
 
+const DropdownContext = React.createContext({
+  localize: PropTypes.func,
+});
+
 class Dropdown extends Component {
+  static contextType = DropdownContext;
   constructor(props) {
     super(props);
 
@@ -102,10 +107,6 @@ Dropdown.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-};
-
-Dropdown.contextTypes = {
-  localize: PropTypes.func,
 };
 
 export default Dropdown;

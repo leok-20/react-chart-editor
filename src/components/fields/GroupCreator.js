@@ -7,7 +7,14 @@ import Button from '../widgets/Button';
 import {PlusIcon} from 'plotly-icons';
 import {MULTI_VALUED} from 'lib/constants';
 
+const UnconnectedGroupCreatorContext = React.createContext({
+  localize: PropTypes.func,
+  data: PropTypes.array,
+  fullData: PropTypes.array,
+});
+
 class UnconnectedGroupCreator extends Component {
+  static contextType = UnconnectedGroupCreatorContext;
   getAllGroups() {
     return [...new Set(this.context.data.map((t) => t[this.props.attr]))].filter((g) => Boolean(g));
   }
@@ -73,12 +80,6 @@ UnconnectedGroupCreator.propTypes = {
   fullContainer: PropTypes.object,
   prefix: PropTypes.string,
   ...Field.propTypes,
-};
-
-UnconnectedGroupCreator.contextTypes = {
-  localize: PropTypes.func,
-  data: PropTypes.array,
-  fullData: PropTypes.array,
 };
 
 UnconnectedGroupCreator.displayName = 'UnconnectedGroupCreator';

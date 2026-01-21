@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {PlusIcon, ResizeUpIcon, ResizeDownIcon} from 'plotly-icons';
 
+const PanelHeaderContext = React.createContext({
+  layout: PropTypes.object,
+  fullContainer: PropTypes.object,
+  onUpdate: PropTypes.func,
+  updateContainer: PropTypes.func,
+  localize: PropTypes.func,
+});
+
 class PanelHeader extends Component {
+  static contextType = PanelHeaderContext;
   constructor() {
     super();
     this.state = {addPanelOpen: false};
@@ -83,14 +92,6 @@ class PanelHeader extends Component {
     );
   }
 }
-
-PanelHeader.contextTypes = {
-  layout: PropTypes.object,
-  fullContainer: PropTypes.object,
-  onUpdate: PropTypes.func,
-  updateContainer: PropTypes.func,
-  localize: PropTypes.func,
-};
 
 PanelHeader.propTypes = {
   addAction: PropTypes.object,

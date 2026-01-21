@@ -15,7 +15,15 @@ const TraceFold = connectTraceToPlot(PlotlyFold);
 const NonCartesianSubplotFold = connectNonCartesianSubplotToLayout(PlotlyFold);
 const CartesianSubplotFold = connectCartesianSubplotToLayout(PlotlyFold);
 
+const SubplotAccordionContext = React.createContext({
+  fullData: PropTypes.array,
+  data: PropTypes.array,
+  layout: PropTypes.object,
+  localize: PropTypes.func,
+});
+
 class SubplotAccordion extends Component {
+  static contextType = SubplotAccordionContext;
   render() {
     const {data = [], layout = {}, localize: _} = this.context;
     const {children} = this.props;
@@ -159,13 +167,6 @@ class SubplotAccordion extends Component {
     return <TraceRequiredPanel>{subplotFolds}</TraceRequiredPanel>;
   }
 }
-
-SubplotAccordion.contextTypes = {
-  fullData: PropTypes.array,
-  data: PropTypes.array,
-  layout: PropTypes.object,
-  localize: PropTypes.func,
-};
 
 SubplotAccordion.propTypes = {
   children: PropTypes.node,

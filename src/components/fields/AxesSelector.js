@@ -5,7 +5,15 @@ import RadioBlocks from '../widgets/RadioBlocks';
 import React, {Component} from 'react';
 import {getParsedTemplateString} from 'lib';
 
+const AxesSelectorContext = React.createContext({
+  axesTargetHandler: PropTypes.func,
+  axesTarget: PropTypes.string,
+  fullLayout: PropTypes.object,
+  localize: PropTypes.func,
+});
+
 class AxesSelector extends Component {
+  static contextType = AxesSelectorContext;
   constructor(props, context) {
     super(props, context);
     const {localize: _} = context;
@@ -62,13 +70,6 @@ class AxesSelector extends Component {
     );
   }
 }
-
-AxesSelector.contextTypes = {
-  axesTargetHandler: PropTypes.func,
-  axesTarget: PropTypes.string,
-  fullLayout: PropTypes.object,
-  localize: PropTypes.func,
-};
 
 AxesSelector.propTypes = {
   axesOptions: PropTypes.array,

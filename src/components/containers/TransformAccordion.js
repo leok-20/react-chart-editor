@@ -7,7 +7,15 @@ import {PanelMessage} from './PanelEmpty';
 
 const TransformFold = connectTransformToTrace(PlotlyFold);
 
+const TransformAccordionContext = React.createContext({
+  fullContainer: PropTypes.object,
+  localize: PropTypes.func,
+  container: PropTypes.object,
+  dataSourceOptions: PropTypes.array,
+});
+
 class TransformAccordion extends Component {
+  static contextType = TransformAccordionContext;
   render() {
     const {
       fullContainer: {transforms = []},
@@ -133,13 +141,6 @@ class TransformAccordion extends Component {
     );
   }
 }
-
-TransformAccordion.contextTypes = {
-  fullContainer: PropTypes.object,
-  localize: PropTypes.func,
-  container: PropTypes.object,
-  dataSourceOptions: PropTypes.array,
-};
 
 TransformAccordion.propTypes = {
   children: PropTypes.node,

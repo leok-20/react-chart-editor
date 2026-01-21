@@ -8,7 +8,15 @@ import {PlusIcon} from 'plotly-icons';
 import {connectToContainer, traceTypeToAxisType, getSubplotTitle} from 'lib';
 import {PlotlySection} from 'components';
 
+const UnconnectedSingleSubplotCreatorContext = React.createContext({
+  fullLayout: PropTypes.object,
+  data: PropTypes.array,
+  fullData: PropTypes.array,
+  onUpdate: PropTypes.func,
+});
+
 class UnconnectedSingleSubplotCreator extends Component {
+  static contextType = UnconnectedSingleSubplotCreatorContext;
   canAddSubplot() {
     const currentAxisId = this.props.fullContainer[this.props.attr];
     const currentTraceIndex = this.props.fullContainer.index;
@@ -91,16 +99,18 @@ UnconnectedSingleSubplotCreator.propTypes = {
   updateContainer: PropTypes.func,
 };
 
-UnconnectedSingleSubplotCreator.contextTypes = {
-  fullLayout: PropTypes.object,
-  data: PropTypes.array,
-  fullData: PropTypes.array,
-  onUpdate: PropTypes.func,
-};
-
 const SingleSubplotCreator = connectToContainer(UnconnectedSingleSubplotCreator);
 
+const UnconnectedSubplotCreatorContext = React.createContext({
+  data: PropTypes.array,
+  fullData: PropTypes.array,
+  fullLayout: PropTypes.object,
+  localize: PropTypes.func,
+  setPanel: PropTypes.func,
+});
+
 class UnconnectedSubplotCreator extends Component {
+  static contextType = UnconnectedSubplotCreatorContext;
   render() {
     const subplotType = traceTypeToAxisType(this.props.container.type);
     if (!['geo', 'mapbox', 'polar', 'gl3d', 'ternary'].some((t) => t === subplotType)) {
@@ -143,14 +153,6 @@ class UnconnectedSubplotCreator extends Component {
 UnconnectedSubplotCreator.propTypes = {
   container: PropTypes.object,
   fullContainer: PropTypes.object,
-};
-
-UnconnectedSubplotCreator.contextTypes = {
-  data: PropTypes.array,
-  fullData: PropTypes.array,
-  fullLayout: PropTypes.object,
-  localize: PropTypes.func,
-  setPanel: PropTypes.func,
 };
 
 export default connectToContainer(UnconnectedSubplotCreator, {

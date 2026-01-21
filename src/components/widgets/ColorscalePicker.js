@@ -6,7 +6,12 @@ import React, {Component} from 'react';
 // CAREFUL: needs to be the same value as $colorscalepicker-width in _colorscalepicker.scss
 const colorscalepickerContainerWidth = 240;
 
+const ScaleContext = React.createContext({
+  localize: PropTypes.func,
+});
+
 class Scale extends Component {
+  static contextType = ScaleContext;
   constructor(props) {
     super(props);
 
@@ -86,10 +91,6 @@ Scale.propTypes = {
   label: PropTypes.string,
   initialCategory: PropTypes.string,
   disableCategorySwitch: PropTypes.bool,
-};
-
-Scale.contextTypes = {
-  localize: PropTypes.func,
 };
 
 export default Scale;

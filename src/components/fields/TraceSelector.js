@@ -12,7 +12,18 @@ import {TraceTypeSelector, TraceTypeSelectorButton, RadioBlocks} from 'component
 import Field from './Field';
 import {CogIcon} from 'plotly-icons';
 
+const TraceSelectorContext = React.createContext({
+  openModal: PropTypes.func,
+  advancedTraceTypeSelector: PropTypes.bool,
+  traceTypesConfig: PropTypes.object,
+  plotSchema: PropTypes.object,
+  config: PropTypes.object,
+  localize: PropTypes.func,
+  glByDefault: PropTypes.bool,
+});
+
 class TraceSelector extends Component {
+  static contextType = TraceSelectorContext;
   constructor(props, context) {
     super(props, context);
 
@@ -151,16 +162,6 @@ class TraceSelector extends Component {
     return <UnconnectedDropdown {...props} />;
   }
 }
-
-TraceSelector.contextTypes = {
-  openModal: PropTypes.func,
-  advancedTraceTypeSelector: PropTypes.bool,
-  traceTypesConfig: PropTypes.object,
-  plotSchema: PropTypes.object,
-  config: PropTypes.object,
-  localize: PropTypes.func,
-  glByDefault: PropTypes.bool,
-};
 
 TraceSelector.propTypes = {
   container: PropTypes.object.isRequired,

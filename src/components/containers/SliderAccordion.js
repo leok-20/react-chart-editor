@@ -6,7 +6,13 @@ import {connectSliderToLayout} from 'lib';
 
 const SliderFold = connectSliderToLayout(PlotlyFold);
 
+const SliderAccordionContext = React.createContext({
+  layout: PropTypes.object,
+  localize: PropTypes.func,
+});
+
 class SliderAccordion extends Component {
+  static contextType = SliderAccordionContext;
   render() {
     const {
       layout: {sliders = []},
@@ -25,11 +31,6 @@ class SliderAccordion extends Component {
     return <TraceRequiredPanel>{content ? content : null}</TraceRequiredPanel>;
   }
 }
-
-SliderAccordion.contextTypes = {
-  layout: PropTypes.object,
-  localize: PropTypes.func,
-};
 
 SliderAccordion.propTypes = {
   children: PropTypes.node,

@@ -23,7 +23,13 @@ import {
   TickFormat,
 } from '../components';
 
+const StyleAxesPanelContext = React.createContext({
+  fullLayout: PropTypes.object,
+  localize: PropTypes.func,
+});
+
 class StyleAxesPanel extends Component {
+  static contextType = StyleAxesPanelContext;
   render() {
     const {localize: _} = this.context;
     return (
@@ -496,10 +502,5 @@ class StyleAxesPanel extends Component {
     );
   }
 }
-
-StyleAxesPanel.contextTypes = {
-  fullLayout: PropTypes.object,
-  localize: PropTypes.func,
-};
 
 export default StyleAxesPanel;

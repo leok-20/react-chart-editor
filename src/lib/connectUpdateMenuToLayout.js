@@ -3,7 +3,23 @@ import PropTypes from 'prop-types';
 import {getDisplayName} from '../lib';
 
 export default function connectUpdateMenuToLayout(WrappedComponent) {
+  const UpdateMenuConnectedComponentContext = React.createContext({
+    container: PropTypes.object,
+    fullContainer: PropTypes.object,
+    onUpdate: PropTypes.func,
+    updateContainer: PropTypes.func,
+    getValObject: PropTypes.func,
+  });
+
+  const UpdateMenuConnectedComponentChildContext = React.createContext({
+    updateContainer: PropTypes.func,
+    container: PropTypes.object,
+    fullContainer: PropTypes.object,
+    getValObject: PropTypes.func,
+  });
+
   class UpdateMenuConnectedComponent extends Component {
+    static contextType = UpdateMenuConnectedComponentContext;
     constructor(props, context) {
       super(props, context);
       this.updateUpdateMenu = this.updateUpdateMenu.bind(this);
@@ -55,21 +71,6 @@ export default function connectUpdateMenuToLayout(WrappedComponent) {
 
   UpdateMenuConnectedComponent.propTypes = {
     updateMenuIndex: PropTypes.number.isRequired,
-  };
-
-  UpdateMenuConnectedComponent.contextTypes = {
-    container: PropTypes.object,
-    fullContainer: PropTypes.object,
-    onUpdate: PropTypes.func,
-    updateContainer: PropTypes.func,
-    getValObject: PropTypes.func,
-  };
-
-  UpdateMenuConnectedComponent.childContextTypes = {
-    updateContainer: PropTypes.func,
-    container: PropTypes.object,
-    fullContainer: PropTypes.object,
-    getValObject: PropTypes.func,
   };
 
   const {plotly_editor_traits} = WrappedComponent;

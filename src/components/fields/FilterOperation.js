@@ -42,7 +42,12 @@ const findOperation = (operator, _) => {
   return op;
 };
 
+const UnconnectedFilterOperationContext = React.createContext({
+  localize: PropTypes.func,
+});
+
 class UnconnectedFilterOperation extends Component {
+  static contextType = UnconnectedFilterOperationContext;
   constructor(props, context) {
     super(props, context);
     const {localize: _} = context;
@@ -120,11 +125,14 @@ UnconnectedFilterOperation.propTypes = {
   updatePlot: PropTypes.func,
   ...Field.propTypes,
 };
-UnconnectedFilterOperation.contextTypes = {
+
+const UnconnectedFilterValueContext = React.createContext({
   localize: PropTypes.func,
-};
+  container: PropTypes.object,
+});
 
 class UnconnectedFilterValue extends Component {
+  static contextType = UnconnectedFilterValueContext;
   constructor(props, context) {
     super(props, context);
 
@@ -198,10 +206,6 @@ UnconnectedFilterValue.propTypes = {
   fullValue: PropTypes.any,
   updatePlot: PropTypes.func,
   ...Field.propTypes,
-};
-UnconnectedFilterValue.contextTypes = {
-  localize: PropTypes.func,
-  container: PropTypes.object,
 };
 
 export const FilterOperation = connectToContainer(UnconnectedFilterOperation);

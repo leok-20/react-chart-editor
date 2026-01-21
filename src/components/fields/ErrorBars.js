@@ -5,7 +5,12 @@ import RadioBlocks from '../widgets/RadioBlocks';
 import Field from './Field';
 import {connectToContainer} from 'lib';
 
+const ErrorBarsContext = React.createContext({
+  localize: PropTypes.func,
+});
+
 class ErrorBars extends Component {
+  static contextType = ErrorBarsContext;
   constructor(props, context) {
     super(props, context);
     this.updatePlot = this.updatePlot.bind(this);
@@ -175,10 +180,6 @@ ErrorBars.propTypes = {
   attr: PropTypes.string,
   fullValue: PropTypes.object,
   updatePlot: PropTypes.func,
-};
-
-ErrorBars.contextTypes = {
-  localize: PropTypes.func,
 };
 
 export default connectToContainer(ErrorBars);

@@ -7,7 +7,13 @@ import Numeric from './Numeric';
 import DataSelector from './DataSelector';
 import {MULTI_VALUED} from 'lib/constants';
 
+const UnconnectedMarkerSizeContext = React.createContext({
+  localize: PropTypes.func,
+  updateContainer: PropTypes.func,
+});
+
 class UnconnectedMarkerSize extends Component {
+  static contextType = UnconnectedMarkerSizeContext;
   constructor(props, context) {
     super(props, context);
 
@@ -90,11 +96,6 @@ UnconnectedMarkerSize.propTypes = {
   fullValue: PropTypes.any,
   updatePlot: PropTypes.func,
   ...Field.propTypes,
-};
-
-UnconnectedMarkerSize.contextTypes = {
-  localize: PropTypes.func,
-  updateContainer: PropTypes.func,
 };
 
 UnconnectedMarkerSize.displayName = 'UnconnectedMarkerSize';

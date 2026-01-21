@@ -4,7 +4,13 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {connectToContainer, adjustColorscale} from 'lib';
 
+const UnconnectedPieColorscalePickerContext = React.createContext({
+  container: PropTypes.object,
+  graphDiv: PropTypes.object,
+});
+
 class UnconnectedPieColorscalePicker extends Component {
+  static contextType = UnconnectedPieColorscalePickerContext;
   constructor(props) {
     super(props);
     this.onUpdate = this.onUpdate.bind(this);
@@ -40,11 +46,6 @@ UnconnectedPieColorscalePicker.propTypes = {
   fullValue: PropTypes.any,
   updatePlot: PropTypes.func,
   ...Field.propTypes,
-};
-
-UnconnectedPieColorscalePicker.contextTypes = {
-  container: PropTypes.object,
-  graphDiv: PropTypes.object,
 };
 
 UnconnectedPieColorscalePicker.displayName = 'UnconnectedPieColorscalePicker';

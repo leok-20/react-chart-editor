@@ -8,7 +8,12 @@ import PropTypes from 'prop-types';
 import {RETURN_KEY, ESCAPE_KEY} from 'lib/constants';
 import {findDOMNode} from 'react-dom';
 
+const LinkEditorContext = React.createContext({
+  localize: PropTypes.func.isRequired,
+});
+
 class LinkEditor extends Component {
+  static contextType = LinkEditorContext;
   constructor(props) {
     super(props);
 
@@ -126,10 +131,6 @@ LinkEditor.defaultProps = {
     x: 0,
     y: 0,
   },
-};
-
-LinkEditor.contextTypes = {
-  localize: PropTypes.func.isRequired,
 };
 
 export default LinkEditor;

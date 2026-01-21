@@ -1,7 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const ModalProviderContext = React.createContext({
+  localize: PropTypes.func,
+});
+
+const ModalProviderChildContext = React.createContext({
+  openModal: PropTypes.func,
+  closeModal: PropTypes.func,
+  handleClose: PropTypes.func,
+  isAnimatingOut: PropTypes.bool,
+});
+
 class ModalProvider extends React.Component {
+  static contextType = ModalProviderContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -83,15 +95,6 @@ class ModalProvider extends React.Component {
 
 ModalProvider.propTypes = {
   children: PropTypes.node,
-};
-ModalProvider.contextTypes = {
-  localize: PropTypes.func,
-};
-ModalProvider.childContextTypes = {
-  openModal: PropTypes.func,
-  closeModal: PropTypes.func,
-  handleClose: PropTypes.func,
-  isAnimatingOut: PropTypes.bool,
 };
 
 export default ModalProvider;

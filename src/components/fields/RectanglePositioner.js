@@ -9,7 +9,15 @@ import DualNumeric from './DualNumeric';
 const maxWidth = 276;
 const gridRes = 8;
 
+const UnconnectedRectanglePositionerContext = React.createContext({
+  localize: PropTypes.func,
+  updateContainer: PropTypes.func,
+  fullContainer: PropTypes.object,
+  fullLayout: PropTypes.object,
+});
+
 class UnconnectedRectanglePositioner extends Component {
+  static contextType = UnconnectedRectanglePositionerContext;
   constructor(props, context) {
     super(props, context);
     this.sendUpdate = this.sendUpdate.bind(this);
@@ -179,13 +187,6 @@ UnconnectedRectanglePositioner.propTypes = {
   updatePlot: PropTypes.func,
   cartesian: PropTypes.bool,
   ...Field.propTypes,
-};
-
-UnconnectedRectanglePositioner.contextTypes = {
-  localize: PropTypes.func,
-  updateContainer: PropTypes.func,
-  fullContainer: PropTypes.object,
-  fullLayout: PropTypes.object,
 };
 
 UnconnectedRectanglePositioner.displayName = 'UnconnectedRectanglePositioner';

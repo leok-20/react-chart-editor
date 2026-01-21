@@ -4,7 +4,26 @@ import {getDisplayName} from '../lib';
 import {EDITOR_ACTIONS} from './constants';
 
 export default function connectLayersToMapbox(WrappedComponent) {
+  const MapboxLayerConnectedComponentContext = React.createContext({
+    container: PropTypes.object,
+    fullContainer: PropTypes.object,
+    data: PropTypes.array,
+    onUpdate: PropTypes.func,
+    updateContainer: PropTypes.func,
+    getValObject: PropTypes.func,
+  });
+
+  const MapboxLayerConnectedComponentChildContext = React.createContext({
+    updateContainer: PropTypes.func,
+    deleteContainer: PropTypes.func,
+    moveContainer: PropTypes.func,
+    container: PropTypes.object,
+    fullContainer: PropTypes.object,
+    getValObject: PropTypes.func,
+  });
+
   class MapboxLayerConnectedComponent extends Component {
+    static contextType = MapboxLayerConnectedComponentContext;
     constructor(props, context) {
       super(props, context);
 
@@ -89,24 +108,6 @@ export default function connectLayersToMapbox(WrappedComponent) {
 
   MapboxLayerConnectedComponent.propTypes = {
     mapboxLayerIndex: PropTypes.number.isRequired,
-  };
-
-  MapboxLayerConnectedComponent.contextTypes = {
-    container: PropTypes.object,
-    fullContainer: PropTypes.object,
-    data: PropTypes.array,
-    onUpdate: PropTypes.func,
-    updateContainer: PropTypes.func,
-    getValObject: PropTypes.func,
-  };
-
-  MapboxLayerConnectedComponent.childContextTypes = {
-    updateContainer: PropTypes.func,
-    deleteContainer: PropTypes.func,
-    moveContainer: PropTypes.func,
-    container: PropTypes.object,
-    fullContainer: PropTypes.object,
-    getValObject: PropTypes.func,
   };
 
   const {plotly_editor_traits} = WrappedComponent;

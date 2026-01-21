@@ -2,7 +2,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Drop from 'react-dropzone';
 
+const DropzoneContext = React.createContext({
+  localize: PropTypes.func,
+});
+
 class Dropzone extends Component {
+  static contextType = DropzoneContext;
   constructor(props, context) {
     super(props, context);
 
@@ -167,10 +172,6 @@ Dropzone.propTypes = {
   fileType: PropTypes.string.isRequired,
   onUpdate: PropTypes.func,
   value: PropTypes.any,
-};
-
-Dropzone.contextTypes = {
-  localize: PropTypes.func,
 };
 
 export default Dropzone;

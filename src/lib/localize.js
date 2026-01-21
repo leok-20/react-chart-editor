@@ -3,7 +3,9 @@ import React, {Component} from 'react';
 import {getDisplayName} from 'lib';
 
 export default function localize(Comp) {
+  const LocalizedComponentContext = React.createContext(LocalizedComponent.contextTypes || {});
   class LocalizedComponent extends Component {
+    static contextType = LocalizedComponentContext;
     constructor(props, context) {
       super(props, context);
 
@@ -20,7 +22,6 @@ export default function localize(Comp) {
     }
   }
   LocalizedComponent.displayName = `Localized${getDisplayName(Comp)}`;
-  LocalizedComponent.contextTypes = LocalizedComponent.contextTypes || {};
   LocalizedComponent.contextTypes.dictionaries = PropTypes.object;
   LocalizedComponent.contextTypes.locale = PropTypes.string;
 

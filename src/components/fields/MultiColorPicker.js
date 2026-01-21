@@ -27,7 +27,15 @@ const CustomColorscalePicker = connectToContainer(UnconnectedColorscalePicker, {
   },
 });
 
+const UnconnectedMultiColorPickerContext = React.createContext({
+  localize: PropTypes.func,
+  updateContainer: PropTypes.func,
+  traceIndexes: PropTypes.array,
+  fullData: PropTypes.array,
+});
+
 class UnconnectedMultiColorPicker extends Component {
+  static contextType = UnconnectedMultiColorPickerContext;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -134,13 +142,6 @@ UnconnectedMultiColorPicker.propTypes = {
   messageKeyWordPlural: PropTypes.string,
   tracesToColor: PropTypes.array,
   ...Field.propTypes,
-};
-
-UnconnectedMultiColorPicker.contextTypes = {
-  localize: PropTypes.func,
-  updateContainer: PropTypes.func,
-  traceIndexes: PropTypes.array,
-  fullData: PropTypes.array,
 };
 
 UnconnectedMultiColorPicker.displayName = 'UnconnectedMultiColorPicker';

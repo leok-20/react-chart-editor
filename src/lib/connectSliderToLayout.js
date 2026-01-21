@@ -3,7 +3,23 @@ import PropTypes from 'prop-types';
 import {getDisplayName} from '../lib';
 
 export default function connectSliderToLayout(WrappedComponent) {
+  const SliderConnectedComponentContext = React.createContext({
+    container: PropTypes.object,
+    fullContainer: PropTypes.object,
+    onUpdate: PropTypes.func,
+    updateContainer: PropTypes.func,
+    getValObject: PropTypes.func,
+  });
+
+  const SliderConnectedComponentChildContext = React.createContext({
+    updateContainer: PropTypes.func,
+    container: PropTypes.object,
+    fullContainer: PropTypes.object,
+    getValObject: PropTypes.func,
+  });
+
   class SliderConnectedComponent extends Component {
+    static contextType = SliderConnectedComponentContext;
     constructor(props, context) {
       super(props, context);
       this.updateSlider = this.updateSlider.bind(this);
@@ -53,21 +69,6 @@ export default function connectSliderToLayout(WrappedComponent) {
 
   SliderConnectedComponent.propTypes = {
     sliderIndex: PropTypes.number.isRequired,
-  };
-
-  SliderConnectedComponent.contextTypes = {
-    container: PropTypes.object,
-    fullContainer: PropTypes.object,
-    onUpdate: PropTypes.func,
-    updateContainer: PropTypes.func,
-    getValObject: PropTypes.func,
-  };
-
-  SliderConnectedComponent.childContextTypes = {
-    updateContainer: PropTypes.func,
-    container: PropTypes.object,
-    fullContainer: PropTypes.object,
-    getValObject: PropTypes.func,
   };
 
   const {plotly_editor_traits} = WrappedComponent;

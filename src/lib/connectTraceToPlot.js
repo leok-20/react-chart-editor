@@ -13,7 +13,27 @@ import {deepCopyPublic, setMultiValuedContainer} from './multiValues';
 import {EDITOR_ACTIONS, SUBPLOT_TO_ATTR} from 'lib/constants';
 
 export default function connectTraceToPlot(WrappedComponent) {
+  const TraceConnectedComponentContext = React.createContext({
+    fullData: PropTypes.array,
+    data: PropTypes.array,
+    plotly: PropTypes.object,
+    onUpdate: PropTypes.func,
+    layout: PropTypes.object,
+  });
+
+  const TraceConnectedComponentChildContext = React.createContext({
+    getValObject: PropTypes.func,
+    updateContainer: PropTypes.func,
+    deleteContainer: PropTypes.func,
+    defaultContainer: PropTypes.object,
+    container: PropTypes.object,
+    fullContainer: PropTypes.object,
+    traceIndexes: PropTypes.array,
+    moveContainer: PropTypes.func,
+  });
+
   class TraceConnectedComponent extends Component {
+    static contextType = TraceConnectedComponentContext;
     constructor(props, context) {
       super(props, context);
 
@@ -203,25 +223,6 @@ export default function connectTraceToPlot(WrappedComponent) {
   TraceConnectedComponent.propTypes = {
     traceIndexes: PropTypes.arrayOf(PropTypes.number).isRequired,
     fullDataArrayPosition: PropTypes.arrayOf(PropTypes.number),
-  };
-
-  TraceConnectedComponent.contextTypes = {
-    fullData: PropTypes.array,
-    data: PropTypes.array,
-    plotly: PropTypes.object,
-    onUpdate: PropTypes.func,
-    layout: PropTypes.object,
-  };
-
-  TraceConnectedComponent.childContextTypes = {
-    getValObject: PropTypes.func,
-    updateContainer: PropTypes.func,
-    deleteContainer: PropTypes.func,
-    defaultContainer: PropTypes.object,
-    container: PropTypes.object,
-    fullContainer: PropTypes.object,
-    traceIndexes: PropTypes.array,
-    moveContainer: PropTypes.func,
   };
 
   const {plotly_editor_traits} = WrappedComponent;

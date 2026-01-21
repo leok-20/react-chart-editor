@@ -345,7 +345,12 @@ const SYMBOLS = [
   {value: 'line-nw-open', label: 'M5,5L-5,-5', fill: 'none'},
 ];
 
+const SymbolSelectorContext = React.createContext({
+  defaultContainer: PropTypes.object,
+});
+
 class SymbolSelector extends Component {
+  static contextType = SymbolSelectorContext;
   constructor(props, context) {
     super(props, context);
     this.setLocals(props, context);
@@ -405,9 +410,6 @@ SymbolSelector.propTypes = {
   fullValue: PropTypes.any,
   updatePlot: PropTypes.func,
   ...Field.propTypes,
-};
-SymbolSelector.contextTypes = {
-  defaultContainer: PropTypes.object,
 };
 
 SymbolSelector.defaultProps = {

@@ -17,7 +17,15 @@ export class FieldDelete extends Component {
   }
 }
 
+const FieldContext = React.createContext({
+  localize: PropTypes.func,
+  description: PropTypes.string,
+  attr: PropTypes.string,
+  showFieldTooltips: PropTypes.bool,
+});
+
 class Field extends Component {
+  static contextType = FieldContext;
   render() {
     const {
       center,
@@ -106,13 +114,6 @@ Field.propTypes = {
   children: PropTypes.node,
   extraComponent: PropTypes.any,
   fieldContainerClassName: PropTypes.string,
-};
-
-Field.contextTypes = {
-  localize: PropTypes.func,
-  description: PropTypes.string,
-  attr: PropTypes.string,
-  showFieldTooltips: PropTypes.bool,
 };
 
 Field.defaultProps = {

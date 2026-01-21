@@ -7,7 +7,13 @@ import {connectAnnotationToLayout, getParsedTemplateString} from 'lib';
 
 const AnnotationFold = connectAnnotationToLayout(PlotlyFold);
 
+const AnnotationAccordionContext = React.createContext({
+  layout: PropTypes.object,
+  localize: PropTypes.func,
+});
+
 class AnnotationAccordion extends Component {
+  static contextType = AnnotationAccordionContext;
   render() {
     const {
       layout: {annotations = [], meta = []},
@@ -67,11 +73,6 @@ class AnnotationAccordion extends Component {
     );
   }
 }
-
-AnnotationAccordion.contextTypes = {
-  layout: PropTypes.object,
-  localize: PropTypes.func,
-};
 
 AnnotationAccordion.propTypes = {
   children: PropTypes.node,

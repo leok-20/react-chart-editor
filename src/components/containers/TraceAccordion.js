@@ -11,7 +11,14 @@ import {PanelMessage} from './PanelEmpty';
 
 const TraceFold = connectTraceToPlot(PlotlyFold);
 
+const TraceAccordionContext = React.createContext({
+  fullData: PropTypes.array,
+  data: PropTypes.array,
+  localize: PropTypes.func,
+});
+
 class TraceAccordion extends Component {
+  static contextType = TraceAccordionContext;
   constructor(props, context) {
     super(props, context);
     this.setLocals(props, context);
@@ -180,12 +187,6 @@ class TraceAccordion extends Component {
     return <TraceRequiredPanel>{this.renderTraceFolds()}</TraceRequiredPanel>;
   }
 }
-
-TraceAccordion.contextTypes = {
-  fullData: PropTypes.array,
-  data: PropTypes.array,
-  localize: PropTypes.func,
-};
 
 TraceAccordion.propTypes = {
   canAdd: PropTypes.bool,

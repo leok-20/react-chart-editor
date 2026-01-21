@@ -7,7 +7,12 @@ import {isLaTeXExpr, htmlToLaTeX, laTeXToHTML, hasTextExpression} from './conver
 import classnames from 'classnames';
 import Button from 'components/widgets/Button';
 
+const MultiFormatTextEditorContext = React.createContext({
+  localize: PropTypes.func,
+});
+
 class MultiFormatTextEditor extends Component {
+  static contextType = MultiFormatTextEditorContext;
   constructor(props, context) {
     super(props, context);
 
@@ -276,10 +281,6 @@ MultiFormatTextEditor.defaultProps = {
   defaultValuePattern: /^$/,
   placeholder: '',
   value: '',
-};
-
-MultiFormatTextEditor.contextTypes = {
-  localize: PropTypes.func,
 };
 
 export default MultiFormatTextEditor;

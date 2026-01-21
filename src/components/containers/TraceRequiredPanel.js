@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {LayoutPanel} from './derived';
 
+const TraceRequiredPanelContext = React.createContext({
+  fullData: PropTypes.array,
+  localize: PropTypes.func,
+  setPanel: PropTypes.func,
+});
+
 class TraceRequiredPanel extends Component {
+  static contextType = TraceRequiredPanelContext;
   hasTrace() {
     return this.context.fullData.filter((trace) => trace.visible).length > 0;
   }
@@ -37,12 +44,6 @@ TraceRequiredPanel.propTypes = {
 
 TraceRequiredPanel.defaultProps = {
   visible: true,
-};
-
-TraceRequiredPanel.contextTypes = {
-  fullData: PropTypes.array,
-  localize: PropTypes.func,
-  setPanel: PropTypes.func,
 };
 
 export default TraceRequiredPanel;

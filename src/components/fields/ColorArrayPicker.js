@@ -7,7 +7,13 @@ import DataSelector from './DataSelector';
 import MultiColorPicker from './MultiColorPicker';
 import {MULTI_VALUED, COLORS} from 'lib/constants';
 
+const UnconnectedColorArrayPickerContext = React.createContext({
+  localize: PropTypes.func,
+  updateContainer: PropTypes.func,
+});
+
 class UnconnectedColorArrayPicker extends Component {
+  static contextType = UnconnectedColorArrayPickerContext;
   constructor(props, context) {
     super(props, context);
 
@@ -123,11 +129,6 @@ UnconnectedColorArrayPicker.propTypes = {
   fullValue: PropTypes.any,
   updatePlot: PropTypes.func,
   ...Field.propTypes,
-};
-
-UnconnectedColorArrayPicker.contextTypes = {
-  localize: PropTypes.func,
-  updateContainer: PropTypes.func,
 };
 
 UnconnectedColorArrayPicker.displayName = 'UnconnectedColorArrayPicker';

@@ -61,7 +61,12 @@ export const LineDashSelector = (props) => (
   />
 );
 
+const LineSelectorContext = React.createContext({
+  fullContainer: PropTypes.object,
+});
+
 class LineSelector extends Component {
+  static contextType = LineSelectorContext;
   constructor(props, context) {
     super(props, context);
     this.setLocals(props, context);
@@ -94,8 +99,4 @@ LineSelector.propTypes = {
 
 LineSelector.defaultProps = {
   clearable: false,
-};
-
-LineSelector.contextTypes = {
-  fullContainer: PropTypes.object,
 };

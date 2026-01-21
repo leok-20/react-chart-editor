@@ -6,7 +6,14 @@ import {connectLayersToMapbox, getParsedTemplateString} from 'lib';
 
 const MapboxLayersFold = connectLayersToMapbox(PlotlyFold);
 
+const MapboxLayersAccordionContext = React.createContext({
+  fullContainer: PropTypes.object,
+  localize: PropTypes.func,
+  layout: PropTypes.object,
+});
+
 class MapboxLayersAccordion extends Component {
+  static contextType = MapboxLayersAccordionContext;
   render() {
     const {
       fullContainer: {layers = []},
@@ -55,12 +62,6 @@ class MapboxLayersAccordion extends Component {
     );
   }
 }
-
-MapboxLayersAccordion.contextTypes = {
-  fullContainer: PropTypes.object,
-  localize: PropTypes.func,
-  layout: PropTypes.object,
-};
 
 MapboxLayersAccordion.propTypes = {
   children: PropTypes.node,

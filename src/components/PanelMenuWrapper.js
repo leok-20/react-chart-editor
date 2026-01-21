@@ -4,6 +4,10 @@ import SidebarGroup from './sidebar/SidebarGroup';
 import {bem} from 'lib';
 import sortMenu from 'lib/sortMenu';
 
+const PanelsWithSidebarChildContext = React.createContext({
+  setPanel: PropTypes.func,
+});
+
 class PanelsWithSidebar extends Component {
   constructor(props) {
     super(props);
@@ -102,10 +106,6 @@ class PanelsWithSidebar extends Component {
 PanelsWithSidebar.propTypes = {
   children: PropTypes.node,
   menuPanelOrder: PropTypes.array,
-};
-
-PanelsWithSidebar.childContextTypes = {
-  setPanel: PropTypes.func,
 };
 
 export default PanelsWithSidebar;

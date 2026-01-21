@@ -12,7 +12,15 @@ import DataSelector from './DataSelector';
 import VisibilitySelect from './VisibilitySelect';
 import {MULTI_VALUED, COLORS} from 'lib/constants';
 
+const UnconnectedMarkerColorContext = React.createContext({
+  localize: PropTypes.func,
+  updateContainer: PropTypes.func,
+  traceIndexes: PropTypes.array,
+  container: PropTypes.object,
+});
+
 class UnconnectedMarkerColor extends Component {
+  static contextType = UnconnectedMarkerColorContext;
   constructor(props, context) {
     super(props, context);
 
@@ -226,13 +234,6 @@ UnconnectedMarkerColor.propTypes = {
   fullValue: PropTypes.any,
   updatePlot: PropTypes.func,
   ...Field.propTypes,
-};
-
-UnconnectedMarkerColor.contextTypes = {
-  localize: PropTypes.func,
-  updateContainer: PropTypes.func,
-  traceIndexes: PropTypes.array,
-  container: PropTypes.object,
 };
 
 UnconnectedMarkerColor.displayName = 'UnconnectedMarkerColor';

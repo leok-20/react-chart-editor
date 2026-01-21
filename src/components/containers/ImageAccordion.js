@@ -7,7 +7,13 @@ import {PanelMessage} from './PanelEmpty';
 
 const ImageFold = connectImageToLayout(PlotlyFold);
 
+const ImageAccordionContext = React.createContext({
+  layout: PropTypes.object,
+  localize: PropTypes.func,
+});
+
 class ImageAccordion extends Component {
+  static contextType = ImageAccordionContext;
   render() {
     const {
       layout: {images = []},
@@ -65,11 +71,6 @@ class ImageAccordion extends Component {
     );
   }
 }
-
-ImageAccordion.contextTypes = {
-  layout: PropTypes.object,
-  localize: PropTypes.func,
-};
 
 ImageAccordion.propTypes = {
   children: PropTypes.node,

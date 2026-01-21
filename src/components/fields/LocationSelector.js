@@ -16,7 +16,13 @@ const LocationmodeVisible = connectToContainer(UnconnectedDropdown, {
   },
 });
 
+const UnconnectedLocationContext = React.createContext({
+  localize: PropTypes.func,
+  updateContainer: PropTypes.func,
+});
+
 class UnconnectedLocation extends Component {
+  static contextType = UnconnectedLocationContext;
   render() {
     const {localize: _} = this.context;
 
@@ -47,14 +53,16 @@ UnconnectedLocation.propTypes = {
   ...Field.propTypes,
 };
 
-UnconnectedLocation.contextTypes = {
-  localize: PropTypes.func,
-  updateContainer: PropTypes.func,
-};
-
 const Location = connectToContainer(UnconnectedLocation);
 
+const UnconnectedLocationSelectorContext = React.createContext({
+  container: PropTypes.object,
+  localize: PropTypes.func,
+  updateContainer: PropTypes.func,
+});
+
 class UnconnectedLocationSelector extends Component {
+  static contextType = UnconnectedLocationSelectorContext;
   constructor(props, context) {
     super(props, context);
 
@@ -135,12 +143,6 @@ UnconnectedLocationSelector.propTypes = {
   updatePlot: PropTypes.func,
   attr: PropTypes.string,
   ...Field.propTypes,
-};
-
-UnconnectedLocationSelector.contextTypes = {
-  container: PropTypes.object,
-  localize: PropTypes.func,
-  updateContainer: PropTypes.func,
 };
 
 export default connectToContainer(UnconnectedLocationSelector);
