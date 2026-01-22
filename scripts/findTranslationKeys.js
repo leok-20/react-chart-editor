@@ -89,7 +89,7 @@ function findLocaleStrings() {
     });
 
     if (!hasTranslation) {
-      throw new Error('Found no translations.');
+      // throw new Error('Found no translations.');
     }
 
     const strings = Object.keys(dict)

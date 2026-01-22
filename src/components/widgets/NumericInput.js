@@ -1,8 +1,7 @@
 import EditableText from './EditableText';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import isNumeric from 'fast-isnumeric';
-import Slider from 'react-rangeslider';
+import isNumeric from 'fast-isnumeric';;
 import {CarretDownIcon, CarretUpIcon} from 'plotly-icons';
 
 export const UP_ARROW = 38;
@@ -159,13 +158,13 @@ export default class NumericInput extends Component {
     }
 
     return (
-      <Slider
+      <input
+        type="range"
         min={this.props.min}
         max={this.props.max}
         step={this.props.step}
         value={parseFloat(this.state.value)}
-        onChange={this.updateValue}
-        tooltip={false}
+        onChange={(e) => this.updateValue(Number(e.target.value))}
       />
     );
   }

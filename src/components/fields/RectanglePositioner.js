@@ -2,7 +2,6 @@ import Field from './Field';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {connectToContainer} from 'lib';
-import ResizableRect from 'react-resizable-rotatable-draggable';
 import RadioBlocks from '../widgets/RadioBlocks';
 import DualNumeric from './DualNumeric';
 
@@ -119,36 +118,52 @@ class UnconnectedRectanglePositioner extends Component {
                   }}
                 />
               ))}
-            <ResizableRect
-              bounds="parent"
-              width={width}
-              height={height}
-              left={left}
-              top={top}
-              rotatable={false}
-              draggable={!this.state.snap}
-              zoomable={zoomable}
-              onResize={(style) => {
-                this.sendUpdate({
-                  fieldWidthPx,
-                  fieldHeightPx,
-                  width: style.width,
-                  height: style.height,
-                  x: style.left,
-                  y: style.top,
-                });
+            <div
+              style={{
+                position: 'absolute',
+                width: width,
+                height: height,
+                left: left,
+                top: top,
+                border: '1px solid #ccc',
+                boxSizing: 'border-box',
+                resize: 'both',
+                overflow: 'auto',
+                cursor: this.state.snap ? 'default' : 'move'
               }}
-              onDrag={(deltaX, deltaY) => {
-                this.sendUpdate({
-                  fieldWidthPx,
-                  fieldHeightPx,
-                  width,
-                  height,
-                  x: left + deltaX,
-                  y: top + deltaY,
-                });
+              onMouseDown={(e) => {
+                if (this.state.snap) return;
+
+                const startX = e.clientX;
+                const startY = e.clientY;
+                const startLeft = left;
+                const startTop = top;
+
+                const onMouseMove = (ev) => {
+                  const deltaX = ev.clientX - startX;
+                  const deltaY = ev.clientY - startY;
+
+                  this.sendUpdate({
+                    fieldWidthPx,
+                    fieldHeightPx,
+                    width,
+                    height,
+                    x: startLeft + deltaX,
+                    y: startTop + deltaY,
+                  });
+                };
+
+                const onMouseUp = () => {
+                  window.removeEventListener('mousemove', onMouseMove);
+                  window.removeEventListener('mouseup', onMouseUp);
+                };
+
+                window.addEventListener('mousemove', onMouseMove);
+                window.addEventListener('mouseup', onMouseUp);
               }}
-            />
+            >
+              {children}
+            </div>
           </div>
           {fullContainer.xaxis && fullContainer.xaxis.overlaying ? (
             ''
